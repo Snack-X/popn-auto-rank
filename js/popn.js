@@ -9,7 +9,7 @@ $(function() {
 function goStep2() {
   var id = $(".i-id").val().trim();
   if(id === "") return;
-  $.getJSON("http://korsnack.kr/popn/proxy.php?id=" + id, onGetJSON);
+  $.getJSON("http://misc.korsnack.kr/popn/proxy.php?id=" + id, onGetJSON);
 }
 
 function onGetJSON(r) {
