@@ -1,4 +1,4 @@
-var popn_data, cv, ctx;
+var popn_data, cv, ctx, id;
 var medal_img;
 
 $(function() {
@@ -7,7 +7,7 @@ $(function() {
 });
 
 function goStep2() {
-  var id = $(".i-id").val().trim();
+  id = $(".i-id").val().trim();
   if(id === "") return;
   $.getJSON("http://misc.korsnack.kr/popn/proxy.php?id=" + id, onGetJSON);
 }
@@ -16,6 +16,10 @@ function onGetJSON(r) {
   if(r.result === false) {
     alert("그런 사람은 없습니다.");
     return;
+  }
+
+  if(r.username !== id) {
+    alert("아이디는 대소문자를 구별합니다. 다음부터는 " + r.username + " 을(를) 입력해주세요.");
   }
 
   popn_data = r;
