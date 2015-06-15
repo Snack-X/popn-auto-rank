@@ -3,7 +3,7 @@
 function curlGet($url) {
   $req = curl_init();
   curl_setopt($req, CURLOPT_URL, $url);
-  curl_setopt($req, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146");
+  curl_setopt($req, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
   curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($req, CURLOPT_SSLVERSION, 3);
   curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
