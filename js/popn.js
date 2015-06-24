@@ -32,7 +32,7 @@ function onGetJSON(r) {
 
 function goStep3() {
   var level = parseInt($("input[name=level]:checked").val(), 10);
-  if(level !== 47 && level !== 48 && level !== 49) {
+  if(level < 45 || level > 49) {
     alert("그런거 없다.");
     return;
   }
@@ -91,7 +91,7 @@ function drawMedal(medal, level, x, y) {
   var sy = 0;
   var dx, dy;
 
-  if(level === 47 || level === 48) {
+  if(level === 45 || level === 46 || level === 47 || level === 48) {
     dx = position[level].x.start + (x * (position[level].x.size + position[level].x.gap));
     dx -= 13;
     dy = position[level].y.pos[y];

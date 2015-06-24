@@ -47,8 +47,10 @@ if($popnData[0] !== "{") {
 else {
   $data = json_decode($popnData, true);
 
-  // Onle 47 ~ 49
+  // Onle 45 ~ 49
   $send = [
+    45 => $data["45"],
+    46 => $data["46"],
     47 => $data["47"],
     48 => $data["48"],
     49 => $data["49"]
