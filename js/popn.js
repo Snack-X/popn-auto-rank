@@ -1,9 +1,38 @@
-var popn_data, cv, ctx, id;
+var popn_data, cv, ctx, id, mode = "a";
 var medal_img;
 
 $(function() {
-  $(".step1").show();
-  $(".b-load").click(goStep2);
+  cv = $("canvas").get(0);
+  ctx = cv.getContext("2d");
+
+  if(location.hash === "") {
+    $(".step1").show();
+    $(".b-load").click(goStep2);
+  }
+  else {
+    var match = location.hash.match(/^#(\d+)_([a-z])_(.*)/);
+
+    if(match === null) {
+      $(".step1").show();
+      $(".b-load").click(goStep2);
+    }
+
+    var hashLevel = parseInt(match[1]);
+    var hashMode = match[2]; // Preserved
+    var hashId = match[3];
+
+    mode = hashMode;
+    id = hashId;
+
+    $(".step3").show();
+
+    $.getJSON("proxy.php?id=" + id, function(r) {
+        if(r.result === false) return;
+
+        popn_data = r;
+        loadImage(hashLevel);
+    });
+  }
 });
 
 function goStep2() {
@@ -41,9 +70,6 @@ function goStep3() {
 
   $(".step3").show();
 
-  cv = $("canvas").get(0);
-  ctx = cv.getContext("2d");
-
   loadImage(level);
 }
 
@@ -75,15 +101,17 @@ function drawChart(level) {
 
     if(song.meda == "l") continue;
 
-    var id = crc32(song.name + song.diff);
+    var songId = crc32(song.name + song.diff);
 
-    if(typeof song_position[level][id] === "undefined") {
-      console.info("Unidentified song found: " + song.name + " => " + id);
+    if(typeof song_position[level][songId] === "undefined") {
+      console.info("Unidentified song found: " + song.name + " => " + songId);
       continue;
     }
 
-    drawMedal(song.meda, level, song_position[level][id][0], song_position[level][id][1]);
+    drawMedal(song.meda, level, song_position[level][songId][0], song_position[level][songId][1]);
   }
+
+  $(".permalink").text(location.origin + location.pathname + "#" + level + "_" + mode + "_" + id);
 }
 
 function drawMedal(medal, level, x, y) {
