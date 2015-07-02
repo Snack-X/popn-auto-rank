@@ -18,7 +18,7 @@ $(function() {
     }
 
     var hashLevel = parseInt(match[1]);
-    var hashMode = match[2]; // Preserved
+    var hashMode = match[2]; // Reserved
     var hashId = match[3];
 
     mode = hashMode;
@@ -27,10 +27,10 @@ $(function() {
     $(".step3").show();
 
     $.getJSON("proxy.php?id=" + id, function(r) {
-        if(r.result === false) return;
+      if(r.result === false) return;
 
-        popn_data = r;
-        loadImage(hashLevel);
+      popn_data = r;
+      loadImage(hashLevel);
     });
   }
 });
@@ -44,7 +44,6 @@ function goStep2() {
 }
 
 function onGetJSON(r) {
-
   if(r.result === false) {
     alert("그런 사람은 없습니다.");
     return;
@@ -73,7 +72,6 @@ function goStep3() {
   $(".step2").hide();
 
   $(".step3").show();
-
   loadImage(level);
 }
 
@@ -84,6 +82,7 @@ function loadImage(level) {
   chart.onload = function() {
     medal_img.src = "img/medal.png";
   };
+
   medal_img.onload = function() {
     drawChart(level);
   };
@@ -102,7 +101,6 @@ function drawChart(level) {
   // 클리어 여부 체크
   for(var i in popn_data.data[level]) {
     var song = popn_data.data[level][i];
-
     if(song.meda == "l") continue;
 
     var songId = crc32(song.name + song.diff);
