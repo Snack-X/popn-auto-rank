@@ -38,10 +38,13 @@ $(function() {
 function goStep2() {
   id = $(".i-id").val().trim();
   if(id === "") return;
-  $.getJSON("http://misc.korsnack.kr/popn/proxy.php?id=" + id, onGetJSON);
+
+  $(".loading").show();
+  $.getJSON("proxy.php?id=" + id, onGetJSON);
 }
 
 function onGetJSON(r) {
+
   if(r.result === false) {
     alert("그런 사람은 없습니다.");
     return;
@@ -55,6 +58,7 @@ function onGetJSON(r) {
 
   $(".step1").hide();
 
+  $(".loading").hide();
   $(".step2").show();
   $(".b-draw").click(goStep3);
 }
